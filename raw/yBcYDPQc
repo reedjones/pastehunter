@@ -1,0 +1,59 @@
+# Define the email parameters
+$smtpServer = "smtp.office365.com"
+$smtpPort = 587 # adjust the port if necessary
+$from = "Mymail@something.dk"
+$attachmentPath = "C:\Users\xxx\Documents\ab421.pdf"
+
+# Define SMTP credentials
+$username = "something"
+$password = "something" | ConvertTo-SecureString -AsPlainText -Force
+$credential = New-Object System.Management.Automation.PSCredential($username, $password)
+
+# Define the body of the email (you can customize this)
+$body = @"
+Dear COMPANY_NAME,
+
+I am writing to express my interest in [mention your purpose or reason].
+
+Please find attached my resume for your consideration.
+
+Thank you for your time.
+
+Sincerely,
+Your Name
+"@
+
+# Define the list of companies and their email addresses
+$companies = @(
+    @{
+        Name = "Trucks Company"
+        Email = "example@gmail.com"
+    }
+    # Add more companies as needed
+)
+
+# Loop through each company
+foreach ($company in $companies) {
+    $to = $company.Email
+    $subject = "Unsolicited Application"
+    $bodyWithCompany = $body -replace "COMPANY_NAME", $company.Name
+
+    # Create the mail message
+    $mailMessage = New-Object System.Net.Mail.MailMessage $from, $to, $subject, $bodyWithCompany
+
+    # Attach the file
+    $attachment = New-Object System.Net.Mail.Attachment($attachmentPath)
+    $mailMessage.Attachments.Add($attachment)
+
+    # Create SMTP client
+    $smtp = New-Object Net.Mail.SmtpClient($smtpServer, $smtpPort)
+    $smtp.EnableSsl = $true
+
+    # Send the email
+    $smtp.Send($mailMessage)
+
+    # Dispose of the attachment
+    $attachment.Dispose()
+}
+
+Write-Host "Bulk emails sent successfully."

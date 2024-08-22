@@ -1,0 +1,101 @@
+Delivered-To: email_address@gmail.com
+Received: by 2002:a05:7108:62e5:b0:30e:3941:cee6 with SMTP id p5csp2392282gdr;
+        Tue, 30 May 2023 13:53:14 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ7tsX6u6MEistBjD15VMAe4p1DS+Yl0mEN7+qQ27qGncxNPNozofaq2cSG52aOaz0YDVsw3
+X-Received: by 2002:a05:6a20:5498:b0:10c:b441:5bd0 with SMTP id i24-20020a056a20549800b0010cb4415bd0mr4040644pzk.18.1685479994514;
+        Tue, 30 May 2023 13:53:14 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1685479994; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=WlqrvXBHJXeWaFkronI+jk2OTWuckLwWDlbQj8YRPQSQsp0/B+mKFrSenFYtUnLmbQ
+         qEboa9Gyy2TpFZCaSNh8WixHZBfFLgX9QypLrpCdBnxtbid1ikeNfvI3UnMO4KIx5ln7
+         +W/nqqbzAxWT/XcPZh51h40kCy5AWf2+sYvli5dLNqVCHkXrmH0hD3/V08dzNMb0vchL
+         +uenn3vruANKwFEPUrgNAurcWI5PYtWtXIr3nEBNix30r8s603rYjIwdbBzSgWhheu6n
+         jMdQ2NYD6D62w2dKGNbS0kJwkrCNVUW2aPJOe74XydHIaUoX/DHFNiJwheRE+IE7kvc7
+         RHPw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:date:to:list-post:precedence:message-id:subject:from
+         :dkim-signature;
+        bh=63s44W8mKzQx+MsVTsXd8lVXLNV9GHtdvJi8gaJVJbI=;
+        b=EK+fBYCpDeP+4OJ/8IT8LuFPaXzLbts4/GnmXPp0xfP/eLL1EKqgqm65zMs5rDC/i2
+         CmNgAFI/AIVOG3JiLulphw1m6VoIGAodd+UWBjEzm11OFnWDZh8jbziYtL7m3UxsVaia
+         3HIkgv5YHGEVqN0NhqYP7WwzPoHkhYqLTqtq69239h9EtOSKUHLdBnytWkZTldC9AR8U
+         bwv1zya7xlBaDHSPEpa6QhgZNNgoUh6JU77thLSpiBnH6GiTCJWou6dCJx6wQ7nilcVx
+         ISAhc25Z9uYTvbTnLE17H0GguEoUp30d5NhRco9JRA7ZEhCdITirsnX577PS2TFWtoN5
+         h7Sw==
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@ChristinaMNumbers.onmicrosoft.com header.s=selector1-ChristinaMNumbers-onmicrosoft-com header.b=MWIdFUiH;
+       arc=pass (i=1);
+       spf=pass (google.com: domain of ekse@ups.com designates 2a01:111:f400:7eab::203 as permitted sender) smtp.mailfrom=ekSE@ups.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=ups.com
+Return-Path: <ekSE@ups.com>
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (mail-co1nam11lp20203.outbound.protection.outlook.com. [2a01:111:f400:7eab::203])
+        by mx.google.com with ESMTPS id b9-20020a63d809000000b0053ef0ec756csi1124565pgh.126.2023.05.30.13.53.14
+        for <email_address@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 30 May 2023 13:53:14 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ekse@ups.com designates 2a01:111:f400:7eab::203 as permitted sender) client-ip=2a01:111:f400:7eab::203;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@ChristinaMNumbers.onmicrosoft.com header.s=selector1-ChristinaMNumbers-onmicrosoft-com header.b=MWIdFUiH;
+       arc=pass (i=1);
+       spf=pass (google.com: domain of ekse@ups.com designates 2a01:111:f400:7eab::203 as permitted sender) smtp.mailfrom=ekSE@ups.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=ups.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none; b=BVRE2FYfLtpLK1UMQR78/pDRXm/YYkQ/YixhlhfsV8a3SVaTioOdrQ69GPMVhX2SdP5ySz6yNYIqsjzJV4XjjSt0+nv0eXFrHrqlzhq1U4XcTBZLnfT9snQiz8qdJdrVekX+1fgN1VgV3M76rIw7y6lAj44mjlLxLVQTx+eeJE6RE1VA6YaZKyr4COoLBrc8X9spZJrwJlqzPDK556rh7ETwS2bcQ1CI1Qx1BYzgUHOJAp0L29ZdKYKQp0RFUbytRDw4cBoms+4Dgi68F1U3E1aTgl3HaVuqcAM7fx/G6FIY6dZBWAQVjyALBNZgT4QJcFxpsFwfZzbsTwVCUiQYEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1; bh=63s44W8mKzQx+MsVTsXd8lVXLNV9GHtdvJi8gaJVJbI=; b=LRlde+uvDWXIHGbF4e5oRUYlRBrS6ljxFkHPU8K8NgT4OU81ppK9rTp8yrjeQrydUFXXq+CyYRlO7JM6Oaf8GW3E5r8Dp3gOykZiMvdszG5yOsm75BVJxB+hp8CB62Vc4vWq8+yFiKDXMNQ68wTX85NchzECNETY6fB4WDGLrsYUzRNtvFW8i9/A1FMTOPRDSzPAb8NxLH6XiZsvwhPRMKrjaUvIAbdGZ1r5vwspVXpnEED9uzXeUvPb+RpTtOomhSdBbMoNOozGT2lQlASR/FWRdIJZVNn3DPlDLeawvyHcRrKRZYJ8c+KQGo4ZHldOSKdAMpGh0DjypGKuBAMfZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is 23.26.253.8) smtp.rcpttodomain=gmail.com smtp.mailfrom=ups.com; dmarc=fail (p=reject sp=reject pct=100) action=oreject header.from=kelerymjrlnra.ups.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ChristinaMNumbers.onmicrosoft.com; s=selector1-ChristinaMNumbers-onmicrosoft-com; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck; bh=63s44W8mKzQx+MsVTsXd8lVXLNV9GHtdvJi8gaJVJbI=; b=MWIdFUiHfDxWSz5Qt7bQ7DVgQFsOvJJ6jVy7RJKwcY9jJtM/AA1lFW+QHkKHPzZFM6i01/xXyOP9+kF+e1bl60wXrwroBKs5RFDfj8Mb1Bx20zyctq60MbTsoKZ7NazTdSyitSrIUxVw+FlkYBYVF6zTbLY8USwdJiUIexmezQF+x2ayBPWFxzKoBIubETv4a5kG440g0pk/HjxGJLhqVAGofqaJ9sGPm0YxJtxQs96oFFXgdw561rLkzgQzM4ePZZEnwDycQWXP1ScMWvfHEeP8/j7YqeeKe/O42VC/lqF4wNlaEEIYz8+3GBeoiqYqguhD9Dj2RUo15LWZveh14A==
+Received: from BN9PR03CA0132.namprd03.prod.outlook.com (2603:10b6:408:fe::17) by CPUPR80MB6727.lamprd80.prod.outlook.com (2603:10d6:103:18a::8) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Tue, 30 May 2023 20:53:11 +0000
+Received: from BN7NAM10FT042.eop-nam10.prod.protection.outlook.com (2603:10b6:408:fe:cafe::56) by BN9PR03CA0132.outlook.office365.com (2603:10b6:408:fe::17) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23 via Frontend Transport; Tue, 30 May 2023 20:53:10 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 23.26.253.8) smtp.mailfrom=ups.com; dkim=none (message not signed) header.d=none;dmarc=fail action=oreject header.from=KelERYMjRlNrA.ups.com;
+Received-SPF: Fail (protection.outlook.com: domain of ups.com does not designate 23.26.253.8 as permitted sender) receiver=protection.outlook.com; client-ip=23.26.253.8; helo=fa83.windbound.org.uk;
+Received: from fa83.windbound.org.uk (23.26.253.8) by BN7NAM10FT042.mail.protection.outlook.com (10.13.156.218) with Microsoft SMTP Server id 15.20.6455.22 via Frontend Transport; Tue, 30 May 2023 20:53:10 +0000
+Content-Type: multipart/encrypted; boundary="_6Ktj69X1-9cXy-9cXy-9cXy-wMManF9Rffbh_"
+From: FE <rvrERrch5@kelerymjrlnra.ups.com>
+X-Mailer: ZuckMail [version 1.00]
+X-Facebook: from 2401:db00:311c:262e:face:0:aa:0 ([MTI3LjAuMC4x]) by www.facebook.com with HTTPS (ZuckMail);
+Subject: SD
+X-Scanned-By: ClamAV 0.103.7; Tue, 30 May 2023 22:52:38 +0200
+Message-ID: <pZuXwi9LOeNRVnhJQ.54PxLBABmswj9Z6M6p249sv6slbONyVlmZNhrB04GZIRVD.noreply@hostry.com>
+Precedence: bulk
+Return-Path: ekSE@ups.com
+List-Post: NO
+To: email_address@gmail.com
+Date: Tue, 30 May 2023 22:52:38 +0200
+MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7NAM10FT042:EE_|CPUPR80MB6727:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2603220b-7080-4ab5-8f7e-08db614fe0b6
+X-MS-Exchange-SenderADCheck: 2
+X-MS-Exchange-AntiSpam-Relay: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: BYvC5nppEWHG1AKt8VnMH8/E108t9AOylmvbnJMS9270bbDnLePSFy9JdseP9jEDWSqo4cioh6GrWKQN+RqYZws864wUfx7OW47SaU8HKO/49GFyb9LwYbGL9sbP4Wt7Khfg5YJn6v9Pms0JPyddBgyfDdilSLLM0qazA0viBumI/a3XbrUixXZz30Ydc/h6SH9khNkrkSl6TSVMR7OqomlREGu5dDxRxwtIEbhmsIvD3AOlmseMge/CpNUq8Hlu/W7zQwZ3U/A7xFkmi3B9U03LWOy/zrpzr/ooGK6phLzRKIlfvj+ARLkl2RF8djK43I+kOCjfVw7jr+WdpiVvL6BOaHfkB03nwON/4eYiLtuy2uKq6MAzRf8pS/3i0ZfXHx6O0Yu8AT88PcrKfj1FmekUgNx55TOxHE52Y5bXzp0T33uJm+6PcrER52E/byEBqG3XIX+Snj1dK+YAqe5DJ95pQiu9QqCKgtPdYRuR8ML/1LqUQW+Sooc8XuJj/DxMdKAhIveG6gmuHsPFrIt3/pP2wy9UrYKQN6dHTTckbK9MRS6cEBdWJJjuT5foBLnQWT55O9nJg5Q2qq5+WgOKP3BENjAO+PQFAmfnIPsffnRI0/LdRAnLx1lauYZ8a3EhXgf2Yf8Wy27tA0Vuy0X5Qsqc9mb7N81VR6NW32zoeXThXqoXggFcNLyu8FEppgbg4++X9/TWVEw5CNn2DhogaraJdCp/h2YxhqmVfEGKB+8F21M6WmrsAPT5sgIiUQFu+s9NiHiRctANsRRz4ZFDwKfZbNjD6/HoHJE8W12yYn8Zqd+jq4GBhMqQ4qDv8H8hgWYc6L26mn54alnCwrFJeQ==
+X-Forefront-Antispam-Report: CIP:23.26.253.8;CTRY:US;LANG:en;SCL:5;SRV:;IPV:NLI;SFV:SPM;H:fa83.windbound.org.uk;PTR:InfoDomainNonexistent;CAT:OSPM;SFS:(13230028)(346002)(39840400004)(136003)(396003)(376002)(5400799015)(451199021)(40470700004)(46966006)(36756003)(564344004)(36736006)(508600001)(6916009)(70206006)(70586007)(10290500003)(33964004)(6486002)(6666004)(10310500001)(40480700001)(82310400005)(41320700001)(47076005)(8936002)(8676002)(41300700001)(9316004)(2906002)(7116003)(118246002)(34070700002)(83170400001)(356005)(81166007)(956004)(336012)(9686003)(6512007)(26005)(6506007)(3480700007)(35950700001)(40460700003)(48836011);DIR:OUT;SFP:1023;
+X-OriginatorOrg: ChristinaMNumbers.onmicrosoft.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2023 20:53:10.1397 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2603220b-7080-4ab5-8f7e-08db614fe0b6
+X-MS-Exchange-CrossTenant-Id: 2c5c87e5-eb78-495b-9f21-bfceb978fefd
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=2c5c87e5-eb78-495b-9f21-bfceb978fefd;Ip=[23.26.253.8];Helo=[fa83.windbound.org.uk]
+X-MS-Exchange-CrossTenant-AuthSource: BN7NAM10FT042.eop-nam10.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPUPR80MB6727
+
+--_6Ktj69X1-9cXy-9cXy-9cXy-wMManF9Rffbh_
+Content-Type: multipart/parallel; boundary="_6Ktj69X1-9cXy-9cXy-9cXy-wMManF9Rffbh_"
+
+--_6Ktj69X1-9cXy-9cXy-9cXy-wMManF9Rffbh_--
+--_6Ktj69X1-9cXy-9cXy-9cXy-wMManF9Rffbh_
+Content-Type: multipart/alternative; boundary="_----------=.3JBUzYanQv"
+
+--_----------=.3JBUzYanQv
+Content-Type: text/html; charset=utf-8
+
+
+
+
+
+
+<tiTlE>
+
+--_----------=.3JBUzYanQv--
+--_6Ktj69X1-9cXy-9cXy-9cXy-wMManF9Rffbh_--

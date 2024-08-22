@@ -1,0 +1,67 @@
+class function TATMail.SendMail(const aReceiver, aSender, aReplyTo, aCc,
+    aSubject, aBody, aAttachments: string; out aOutMessage: string): Boolean;
+var
+  smtp: TIdSMTP;      
+  msg: TidMessage;    
+  builder: TIdMessageBuilderHtml;
+  i: Integer;
+  vStrList: TStringList;         
+  vUserName, vPassword: String;
+  vHelp: IBoldHelper;            
+begin
+  Result := False;
+  // This will release memory for parameters later with vHelp interfaces. try/finally is not needed
+  vHelp := CreateBoldHelper(vStrList, smtp, msg, builder);
+  vStrList := TStringList.Create;
+  msg := TIdMessage.Create(nil);
+
+  builder := TIdMessageBuilderHtml.Create;
+  builder.PlainText.Text := aBody;
+  builder.PlainTextCharSet := cnUTF8;
+
+  if aAttachments <> '' then
+  begin
+    vStrList.CommaText := aAttachments;
+
+    for i := 0 to vStrList.Count - 1 do
+      if FileExists(vStrList[i]) then
+        builder.Attachments.Add(vStrList[i]);
+  end;
+  builder.FillMessage(msg);
+
+  msg.From.Name := aSender;
+  msg.From.Address := aReplyTo;
+  msg.Subject := aSubject;
+  msg.Recipients.EMailAddresses := aReceiver;
+  if Pos('@', aCc) > 0 then
+    msg.CCList.EMailAddresses := aCc;
+
+  smtp := TIdSMTP.Create(nil);
+  try
+    smtp.Host := GetSystemConfig.SMTPHost;
+    // smtp.UseTLS := utNoTLSSupport;
+    smtp.Port := GetSystemConfig.Port;
+    vUserName := GetSystemConfig.UserName;
+    vPassword := GetSystemConfig.PassWord;
+    if (vUserName <> '') and (vPassword <> '') then
+    begin
+      smtp.Username := vUserName;
+      smtp.Password := vPassword;
+      smtp.AuthType := satDefault;
+    end
+    else
+      smtp.AuthType := satNone;
+
+    smtp.Connect;
+    try
+      smtp.Send(msg);
+      aOutMessage := 'Mail sent to ' + aReceiver +'.';
+      Result := true;
+    finally
+      smtp.Disconnect;
+    end;
+  except
+    on E: Exception do  // Do not raise exception again. Only show errormessage for user
+      aOutMessage := Format('%s. Mail couldn''t be sent to %s.', [E.Message, aReceiver]);
+  end;
+end;

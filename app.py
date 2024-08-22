@@ -8,6 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 from colorama import init
 from colorama import Fore, Back, Style
+import re
 
 init()
 
@@ -15,17 +16,21 @@ init()
 basedir = "raw/"
 
 #CHANGE THE intext: WITH THE INFORMATION YOU WANT TO SEARCH
-query = "site:pastebin.com intext:smtp.sendgrid.net"
+query = "site:pastebin.com intext:smtp"
 query = query.replace(' ', '+')
+
+def good_links(soup):
+    return soup.find_all("a", href=lambda href: href and "http" in href and not "google" in href and not "cdn" in href)
 
 
 def getContentRaw(url):
     fname = url[url.rindex("/")+1:len(url)]
     url = "https://pastebin.com/raw/"+url[url.rindex("/")+1:len(url)]
+    print(f"checking {url} {fname}")
     USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0"
     headers = {"user-agent": USER_AGENT}
     r = requests.get(url,headers=headers)
-    w = open(basedir+fname,'w')
+    w = open(basedir+fname,'w+')
     w.write(r.text)
     w.close()
 
@@ -47,23 +52,18 @@ def beginScraping():
         pos = str(start)
         URL = f"https://google.com/search?q={query}&start{pos}"
         resp = requests.get(URL, headers=headers)
+        print(URL)
         if resp.status_code == 200:
+            print('soup')
             soup = BeautifulSoup(resp.content, "html.parser")
-            for g in soup.find_all('div', class_='g'):
-                # anchor div
-                rc = g.find('div', class_='rc')
-                # description div
-                s = g.find('div', class_='s')
-                if rc:
-                    divs = rc.find_all('div', recursive=False)
-                    if len(divs) >= 2:
-                        anchor = divs[0].find('a')
-                        link = anchor['href']
-                        results.append(link)
+            for g in good_links(soup):
+                link = g['href']
+                results.append(link)
 
     #Get the results
     for url in results:
         print(Fore.RED+"Fetching contents of "+url)
         getContentRaw(url)
 
-beginScraping()
+if __name__ == '__main__':
+    beginScraping()
